@@ -43,6 +43,8 @@ npm run start
 
 ## 👓 Examples 
 
+Change the example.env with your preferred options. You can leave as it is, but vscode will use "development.env" as default env file.
+
 Start the project and connect to localhost:4000/graphql. You can use apollo studio to execute query against the api.
 
 Insert a note with:
