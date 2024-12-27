@@ -1,0 +1,29 @@
+{
+    "name": "notes-api docker devcontainer",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+    "features": {
+        "ghcr.io/devcontainers-contrib/features/curl-apt-get:1": {
+            "version": "1.0.16"
+        }
+    },
+
+    "forwardPorts": [
+        4000
+    ],
+    
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "biomejs.biome",
+                "Orta.vscode-jest"
+            ]
+        }
+    },
+
+    "runArgs": [
+        "--network=vscode_shared_network",
+		"--name=notes-api_devcontainer",
+		"--hostname=notes-api"
+    ],
+
+}
