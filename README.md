@@ -1,55 +1,55 @@
 # NOTES-API
 
-Notes-api is a GraphQL service to managing taking notes, associating a language a source and tags.
-It is written in typescript and uses various open source libraries, especially:
+Notes-api is a GraphQL service for managing notes, associating them with a language, a source, and tags.  
+It is written in TypeScript and uses various open-source libraries, including:
 
-* [mikro-orm](https://github.com/mikro-orm/mikro-orm)
-* [type-graphql](https://github.com/MichalLytek/type-graphql)
+* [mikro-orm](https://github.com/mikro-orm/mikro-orm)  
+* [type-graphql](https://github.com/MichalLytek/type-graphql)  
 * [SQLite](https://www.sqlite.org/)
 
 ## 📑 Background
 
-I wanted to give a try to the SQLite FTS5 extension and how easy would it be to use it with mikro-orm in a GraphQL api.
+I wanted to try the SQLite FTS5 extension and explore how easy it would be to use it with mikro-orm in a GraphQL API.
 
-I ended up using a schema with [external content table](https://www.sqlite.org/fts5.html#external_content_tables) - the source of ispiration of this solution is from this great [video](https://www.youtube.com/watch?v=eXMA_2dEMO0) from James Moore.
+I ended up using a schema with an [external content table](https://www.sqlite.org/fts5.html#external_content_tables). The inspiration for this solution came from this great [video](https://www.youtube.com/watch?v=eXMA_2dEMO0) by James Moore.
 
 ## 🚀 Quick Start
 
-If you are using visual studio code, just clone the repository and launch vscode in the repo directory. If you have the remote extension installed, it will offer to re-open it in devcontainer.
+If you are using Visual Studio Code, clone the repository and launch VS Code in the repository directory. If you have the Remote extension installed, it will offer to re-open the project in a devcontainer.
 
-> If you are using Podman / Podman Desktop, select the podman container
+> If you are using Podman/Podman Desktop, select the Podman container.
 
-Both devcontainers install two extensions: 
-* biomejs.biome (formatting, linter)
+Both devcontainers install two extensions:  
+* biomejs.biome (formatting, linter)  
 * Orta.vscode-jest (tests)
 
-The project require at least node 22:
+The project requires at least Node.js 22:
 
-```
+```bash
 npm install
 ```
 
 Run the unit/integration tests with:
 
-```
+```bash
 npm run test
 ```
 
-Run the api with:
+Run the API with:
 
-```
+```bash
 npm run start
 ```
 
 ## 👓 Examples 
 
-Change the example.env with your preferred options. You can leave as it is, but vscode will use "development.env" as default env file.
+Edit the example.env file with your preferred options. You can leave it as-is, but VS Code will use development.env as the default environment file.
 
-Start the project and connect to localhost:4000/graphql. You can use apollo studio to execute query against the api.
+Start the project and connect to localhost:4000/graphql. You can use Apollo Studio to execute queries against the API.
 
 Insert a note with:
 
-```GraphQL
+```graqphql
 mutation SaveNote($data: NoteInput!) {
   saveNote(data: $data) {
     title
@@ -65,7 +65,7 @@ mutation SaveNote($data: NoteInput!) {
 
 using these variables:
 
-```Json
+```json
 {
   "data": {
     "internalId": "MATH-001",
@@ -78,9 +78,9 @@ using these variables:
 }
 ```
 
-It is possible to associate tags with it:
+You can associate tags with it:
 
-```GraphQL
+```graqphql
 
 mutation AssociateTagsWithNote($associations: NoteAssociationInput!) {
   associateTagsWithNote(associations: $associations)
@@ -90,7 +90,7 @@ mutation AssociateTagsWithNote($associations: NoteAssociationInput!) {
 
 using these variables:
 
-```Json
+```json
 {
   "associations": {
     "noteId": 1,
@@ -104,11 +104,11 @@ using these variables:
 }
 ```
 
-At this point it is possible to do a free text search.
+At this point, you can perform a free-text search.
 
-> Under the hood, sqlite is using MATCH with title or body of the note
+> Under the hood, sqlite uses MATCH to search the title or body of the note.
 
-``` GraphQL
+``` graqphql
 query searchNotes($pagination: PaginationInput!, $searchInput: SearchNotesInput!, $sortInput: NoteMultiSortInput) {
   searchNotes(pagination: $pagination, searchInput: $searchInput, sortInput: $sortInput) {
     hasNextPage
@@ -136,7 +136,7 @@ query searchNotes($pagination: PaginationInput!, $searchInput: SearchNotesInput!
 
 using these variables:
 
-```Json
+```json
 {
 
   "searchInput": {
